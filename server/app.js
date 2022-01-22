@@ -23,11 +23,19 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const ext = file.originalname.split('.').pop();
-    cb(null, `${Date.now}.${ext}`)
+    cb(null, `${Date.now()}.${ext}`)
   }
 })
 
-const upload = multer({ storage });
+const upload = multer({ 
+  storage,
+  fileFilter: (req, file, cb) => {
+    const filetypes = /applicationMP3|applicationMPEG-4|applicationWAV|applicationAAC/g;
+    const mimeType = filetypes.test(file.mimetype.split('/').join(''))
+    if (mimeType) return cb(null, true);
+    cb('Error archivo incorrecto');
+  }
+});
 
 // --- Rutas
 app.use('/api', upload.single('file'), router)

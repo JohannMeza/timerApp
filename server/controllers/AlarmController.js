@@ -6,8 +6,9 @@ const index = async (req, res) => {
 }
 
 const store = async (req, res) => {
-  const { hour, interval, music, title, description } = req.body;
-  // if (!hour && !interval && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
+  const { hour, interval, title, description } = req.body;
+  const music = req.file.path
+  if (!hour && !interval && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
   const alarm = new Alarm({ hour, interval, music, title, description });
   await alarm.save();
   res.json(alarm);
@@ -15,7 +16,6 @@ const store = async (req, res) => {
 
 const show = async (req, res) => {
   try {
-    console.log(req.params.id)
     const alarm = await Alarm.findOne({ _id: req.params.id });
     if (!alarm) return res.status(404).json({ "Not found": "Not found by your id" })
     res.json(alarm)

@@ -4,7 +4,6 @@ const userController = require('../controllers/AlarmController.js');
 const timerController = require('../controllers/TimerController.js');
 const pomodoroController = require('../controllers/PomodoroController.js')
 
-
 router.get('/alarm', userController.index);
 router.post('/alarm', userController.store);
 router.get('/alarm/:id', userController.show);
