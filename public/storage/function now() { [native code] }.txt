@@ -1,0 +1,25 @@
+Examenes: 
+laboratorio:
+	Hemograma completo
+	Glucosa
+	Urea
+	Creatinina
+	TGP
+	TGO
+	GGTP
+	Examen completo de orina
+	Perfil tiroideo
+	TSH
+	Dosaje de vitamina B12
+	Perfil hepático
+	Perfil lipídico
+
+Imagenología 
+	Gammagrafia cerebral
+	TAC cerebral c/s Contraste
+	Resonancia magnética cerebral c/s contraste
+	Resonancia magnetica funcional
+
+Otros 
+	Electroencefalograma
+	Polisomnografia

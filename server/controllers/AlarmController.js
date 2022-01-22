@@ -7,7 +7,7 @@ const index = async (req, res) => {
 
 const store = async (req, res) => {
   const { hour, interval, music, title, description } = req.body;
-  if (!hour && !interval && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Datos incompletos"});
+  // if (!hour && !interval && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
   const alarm = new Alarm({ hour, interval, music, title, description });
   await alarm.save();
   res.json(alarm);
@@ -17,7 +17,7 @@ const show = async (req, res) => {
   try {
     console.log(req.params.id)
     const alarm = await Alarm.findOne({ _id: req.params.id });
-    if (!alarm) return res.status(404).json({ "Not found": "Alarm Not Found" })
+    if (!alarm) return res.status(404).json({ "Not found": "Not found by your id" })
     res.json(alarm)
   } catch (err) {
     return res.status(500).send(err)
@@ -27,7 +27,7 @@ const show = async (req, res) => {
 const updated = async (req, res) => {
   try {
     const alarm = await Alarm.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!alarm) return res.status(404).json({ "Not Found": "Alarm Update Not Found" });
+    if (!alarm) return res.status(404).json({ "Not Found": "Not found to update" });
     res.json(alarm)
   } catch (err) {
     return res.status(500).send(err);
@@ -36,8 +36,8 @@ const updated = async (req, res) => {
 
 const deleted = async (req, res) => {
   try {
-    const alarm = await Alarm.deleteOne({ _id: req.params.id });
-    if (!alarm) return res.status(404).json({ "Not Found": "Delete Alarm Not Found" });
+    const alarm = await Alarm.findByIdAndDelete(req.params.id);
+    if (!alarm) return res.status(404).json({ "Not Found": "Not found to delete" });
     res.json(alarm);
   } catch (err) {
     return res.status(500).send(err)
