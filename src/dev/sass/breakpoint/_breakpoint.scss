@@ -1,0 +1,28 @@
+$mobile: 580px;
+$tablet: 580px;
+$laptop: 1020px;
+$desktop: 1250px;
+
+@mixin mobile () {
+  @media screen and (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet () {
+  @media screen and (min-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin laptop () {
+  @media screen and (min-width: $laptop) {
+    @content;
+  }
+}
+
+@mixin desktop () {
+  @media screen and (min-width: $desktop) {
+    @content;
+  }
+}
