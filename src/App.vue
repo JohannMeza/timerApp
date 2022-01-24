@@ -94,4 +94,19 @@ export default {
     }
   }
 }
+
+// Sin registros
+.no-records {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  & .no-records__icon{
+    font-size: 5rem;
+    color: var(--c-gray-regular);
+  }
+  & .no-records__text {
+
+  }
+}
 </style>

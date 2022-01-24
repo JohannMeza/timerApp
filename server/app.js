@@ -3,8 +3,7 @@ const app = express();
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors')
-const router = require('./router/index.js')
-const multer = require('multer')
+const router = require('./router/index.js');
 
 // --- Settings
 app.set('port', 3000)
@@ -17,27 +16,9 @@ app.use(morgan('dev'))
 app.use(cors());
 app.use(express.json())
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, '..', '/public/storage'))
-  },
-  filename: (req, file, cb) => {
-    const ext = file.originalname.split('.').pop();
-    cb(null, `${Date.now()}.${ext}`)
-  }
-})
-
-const upload = multer({ 
-  storage,
-  fileFilter: (req, file, cb) => {
-    const filetypes = /applicationMP3|applicationMPEG-4|applicationWAV|applicationAAC/g;
-    const mimeType = filetypes.test(file.mimetype.split('/').join(''))
-    if (mimeType) return cb(null, true);
-    cb('Error archivo incorrecto');
-  }
-});
 
 // --- Rutas
-app.use('/api', upload.single('file'), router)
+app.use('/api', router)
+
 
 module.exports = app;

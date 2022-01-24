@@ -23,30 +23,25 @@
       </div>
 
       <div class="table__content box-shadow">
-        <table class="table">
+        <table class="table" v-if="alarms && alarms.length !== 0">
           <tbody class="table__body">
-            <tr class="table__row">
-              <td>Para: 15:00:00</td>
+            <tr class="table__row" v-for="alarm in alarms" :key="alarm._id">
+              <td>Para: {{ alarm.hora }}</td>
               <td>Restante: 05:00:00</td>
               <td>Nombre: Webinar para todos</td>
               <td class="table__btn">
                 <span class="table__btn-icon"><i class="fas fa-info"></i></span>
                 <span class="table__btn-icon"><i class="fas fa-edit"></i></span>
-                <span class="table__btn-icon"><i class="fas fa-trash"></i></span>
-              </td>
-            </tr>
-            <tr class="table__row">
-              <td>Para: 15:00:00</td>
-              <td>Restante: 05:00:00</td>
-              <td>Nombre: Webinar para todos</td>
-              <td class="table__btn">
-                <span class="table__btn-icon"><i class="fas fa-info"></i></span>
-                <span class="table__btn-icon"><i class="fas fa-edit"></i></span>
-                <span class="table__btn-icon"><i class="fas fa-trash"></i></span>
+                <span class="table__btn-icon" @click="deleteAlarm(alarm._id)"><i class="fas fa-trash"></i></span>
               </td>
             </tr>
           </tbody>
         </table>
+
+        <div class="no-records" v-else>
+          <span class="no-records__icon"><i class="fas fa-clipboard"></i></span>
+          <span class="no-records__text">Sin registros</span>
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +49,7 @@
 
 <script>
 import { ref } from 'vue';
+import { deleted, index } from '../../services/AlarmServices';
 import MissedAlarm from './MissedAlarm.vue';
 import PendingAlarm from './PendingAlarm.vue';
 
@@ -64,6 +60,21 @@ export default {
 
   setup () {
     const componentKeep = ref('MissedAlarm')
+    const alarms = ref();
+
+    // --- Get
+    const getAlarms = async () => {
+      const res = await index()
+      alarms.value = res.data
+    }
+
+    // --- Delete 
+    const deleteAlarm = async (id) => {
+      if (confirm('¿Estas seguro de eliminar este registro?')) {
+        await deleted(id);
+        getAlarms()
+      }
+    } 
 
     const btnIterationComponents = (value) => {
       document.querySelector(".alarm__nav-btn.active").classList.remove("active")
@@ -71,7 +82,9 @@ export default {
       return event.target.classList.add("active")
     }
 
-    return { componentKeep, btnIterationComponents }
+    getAlarms()
+
+    return { alarms, componentKeep, btnIterationComponents, deleteAlarm }
   }
 }
 </script>

@@ -6,9 +6,9 @@ const index = async (req, res) => {
 }
 
 const store = async (req, res) => {
-  const { hour, interval, title, description } = req.body;
-  const music = req.file.path
-  if (!hour && !interval && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
+  const { hour, interval, title, description } = JSON.parse(req.body.archivos);
+  const music = req.file ? req.file.path : "musica por default";
+  if (!hour || !interval || !music || !title || !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
   const alarm = new Alarm({ hour, interval, music, title, description });
   await alarm.save();
   res.json(alarm);
