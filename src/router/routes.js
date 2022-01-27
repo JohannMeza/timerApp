@@ -31,8 +31,22 @@ const routes = [
     component: PomodoroHome
   },
   {
+    path: '/form/:location/update/:id',
+    name: 'FormComponent',
+    param: true,
+    component: FormConponent,
+    beforeEnter: (to, from, next) => {
+      if (to.fullPath.split('/')[2] === 'alarm' || to.fullPath.split('/')[2] === 'work') {
+        return next()
+      }
+
+      router.push({ path: '/NotFound' })
+      next()
+    }
+  },
+  {
     path: '/form/:location',
-    name: 'FormConponent',
+    name: 'FormComponentUpload',
     param: true,
     component: FormConponent,
     beforeEnter: (to, from, next) => {

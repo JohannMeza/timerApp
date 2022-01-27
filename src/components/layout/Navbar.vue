@@ -32,8 +32,8 @@
       </li>
     </ul>
 
-    <div class="btn__menu" :class="{ 'btn__menu-active': !navbarActive }" @click="collapseNavbar">
-      <span class="btn-menu"><i class="fas fa-chevron-left"></i></span>
+    <div class="btn__menu" :class="{ 'btn__menu-active': !navbarActive }">
+      <span class="btn-menu" @click="collapseNavbar"><i class="fas fa-chevron-left"></i></span>
     </div>
   </nav>
 </template>

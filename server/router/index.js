@@ -31,6 +31,7 @@ router.get('/alarm', alarmController.index);
 router.post('/alarm', upload.single('file'), alarmController.store);
 router.get('/alarm/:id', alarmController.show);
 router.put('/alarm/:id', alarmController.updated);
+router.put('/alarm/hour/:id', alarmController.uploadHour);
 router.delete('/alarm/:id', alarmController.deleted);
 
 router.get('/timer', timerController.index);
@@ -40,7 +41,7 @@ router.put('/timer/:id', timerController.updated);
 router.delete('/timer/:id', timerController.deleted);
 
 router.get('/pomodoro', pomodoroController.index);
-router.post('/pomodoro', pomodoroController.store);
+router.post('/pomodoro', upload.single('file'), pomodoroController.store);
 router.get('/pomodoro/:id', pomodoroController.show);
 router.put('/pomodoro/:id', pomodoroController.updated);
 router.delete('/pomodoro/:id', pomodoroController.deleted);

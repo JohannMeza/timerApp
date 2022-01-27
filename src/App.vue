@@ -9,18 +9,13 @@
 </template>
 
 <script>
-// import { useRouter } from 'vue-router';
 import Navbar from './components/layout/Navbar.vue';
 import Sidebar from './components/layout/Sidebar.vue';
 
 export default {
   name: 'App',
-
   components: { Navbar, Sidebar },
-  
   setup () {
-    // const router = useRouter()
-    // router.push({ name: 'AlarmHome' })
   }
 }
 </script>
@@ -75,8 +70,8 @@ export default {
 
 .table__btn {
   display: flex;
-  gap: 10px;
   justify-content: center;
+  gap: 10px;
 
   & .table__btn-icon {
     display: flex;

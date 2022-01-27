@@ -6,8 +6,9 @@ const index = async (req, res) => {
 };
 
 const store = async (req, res) => {
-  const { hour, rest, music, title, description } = req.body;
-  if (!hour && !rest && !music && !title && !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add" })
+  const { hour, rest, title, description } = JSON.parse(req.body.archivos);
+  const music = req.file ? req.file.path : "musica por default";
+  if (!hour || !rest || !music || !title || !description) return res.status(404).json({ "Data incomplete": "Incomplete data to add"});
   const pomodoro = new Pomodoro({ hour, rest, music, title, description })
   await pomodoro.save();
   res.json(pomodoro)

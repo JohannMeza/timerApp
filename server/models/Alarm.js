@@ -7,7 +7,18 @@ const alarmSchema = new Schema({
     trim: true
   },
   interval: {
-    type: String,
+    type: Number,
+    required: true,
+    trim: true
+  },
+  status: {
+    type: Number,
+    required: true,
+    trim: true,
+    default: 0
+  },
+  notification: {
+    type: Boolean,
     required: true,
     trim: true
   },

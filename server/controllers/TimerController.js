@@ -6,6 +6,7 @@ const index = async (req, res) => {
 }
 
 const store = async (req, res) => {
+  console.log(req.body)
   const { time } = req.body;
   if (!time) return res.status(404).json({ "Data incomplete": "Incomplete data to add" })
   const timer = new Timer({ time });
